@@ -7,7 +7,7 @@ const Footer = () => {
     <div>
       <footer className="footer sm:footer-horizontal text-base-content p-10 shadow">
         <div>
-            <div className="flex items-center gap-3 text-xl font-bold">
+            <div className="flex items-center gap-3 text-xl text-[#3adc9e] font-bold">
                 <img className="w-20" src="https://i.ibb.co.com/5XXH6Dj9/Gemini-Generated-Image-4iszgc4iszgc4isz-removebg-preview.png" alt="" />
                 <p>FinEase</p>
             </div>

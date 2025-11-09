@@ -10,7 +10,7 @@ const Navbar = () => {
       <NavLink
         className={({ isActive }) =>
           `mr-2 p-2 transition-all  duration-10 ${
-            isActive ? " border-[#c67033]" : ""
+            isActive ? " border-[#3adc9e]" : ""
           }`
         }
         to="/"
@@ -25,7 +25,7 @@ const Navbar = () => {
       <NavLink
         className={({ isActive }) =>
           `mr-2 p-2  transition-all  duration-10 ${
-            isActive ? " border-[#c67033]" : " "
+            isActive ? " border-[#3adc9e]" : " "
           }`
         }
         to=""
@@ -38,7 +38,7 @@ const Navbar = () => {
       <NavLink
         className={({ isActive }) =>
           `mr-2 p-2  transition-all  duration-10 ${
-            isActive ? " border-[#c67033]" : ""
+            isActive ? " border-[#3adc9e]" : ""
           }`
         }
         to=""
@@ -50,7 +50,7 @@ const Navbar = () => {
       <NavLink
         className={({ isActive }) =>
           `mr-2 p-2  transition-all  duration-10 ${
-            isActive ? " border-[#c67033]" : ""
+            isActive ? " border-[#3adc9e]" : ""
           }`
         }
         to=""
@@ -105,8 +105,12 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{link}</ul>
         </div>
         <div className="navbar-end gap-5">
-          <a className="btn">Login</a>
-          <a className="btn">Sign Up</a>
+          <button className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none">
+            LogIn
+          </button>
+          <button className="btn bg-gray-800 hover:bg-gray-900 text-white ">
+            Sign Up
+          </button>
         </div>
       </div>
     </div>
