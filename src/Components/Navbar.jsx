@@ -5,19 +5,21 @@ import { MdOutlineAddCard } from "react-icons/md";
 import { TbReportSearch } from "react-icons/tb";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
+import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
-  const {user, logOut} = use(AuthContext)
+  const { user, logOut } = use(AuthContext);
+  console.log(user);
 
   const handelLogOut = () => {
-    logOut().then(() => {
-  alert("LogOut successfull")
-}).catch((error) => {
-  alert(error)
-});
-  }
-
-
+    logOut()
+      .then(() => {
+        alert("LogOut successfull");
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
 
   const link = (
     <>
@@ -118,13 +120,92 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{link}</ul>
         </div>
-        <div className="navbar-end">
-          {user ? <button onClick={handelLogOut} className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none">LogOut</button> : <div className="space-x-3"><Link to="/login" className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none ">
-            LogIn
-          </Link>
-          <Link to='/signup' className="btn bg-gray-800 hover:bg-gray-900 text-white ">
-            Sign Up
-          </Link></div>}
+        <div className="navbar-end flex justify-end">
+          {user ? (
+            <div className="drawer drawer-end justify-end z-50">
+              <input
+                id="my-drawer-5"
+                type="checkbox"
+                className="drawer-toggle"
+              />
+              <div className="drawer-content">
+                {/* Page content here */}
+                
+                <label htmlFor="my-drawer-5" className="drawer-button ">
+                  <img
+                    src={user?.photoURL}
+                    className="w-15 h-15 object-cover rounded-full"
+                    alt=""
+                  />
+                </label>
+              </div>
+              <div className="drawer-side">
+                <label
+                  htmlFor="my-drawer-5"
+                  aria-label="close sidebar"
+                  className="drawer-overlay"
+                ></label>
+                <ul className="menu bg-base-200 min-h-full w-80 p-4 space-y-5">
+                  {/* Sidebar content here */}
+                  <img  onClick={() => document.getElementById("my_modal_2").showModal()} src={user.photoURL} className="object-cover w-70 h-70 mx-auto rounded-full" alt="" />
+                  <p className="text-2xl ">{user.displayName}</p>
+                  <p className="text-2xl pb-2">{user.email}</p>
+                    <NavLink
+                      className={({ isActive }) =>
+                        `mr-2 p-2  transition-all  duration-10 ${
+                          isActive
+                          ? "text-green-600 border-b-2 border-[#3adc9e]"
+                          : ""
+                        }`
+                      }
+                      to="/my-profile"
+                    >
+                          <div className="flex items-center gap-2">
+                      <CgProfile />
+                      <p>My Profile</p>
+                  </div>
+                    </NavLink>
+
+                  <div className="divider"></div>
+                  <button
+                    onClick={handelLogOut}
+                    className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none"
+                  >
+                    LogOut
+                  </button>
+                </ul>
+              </div>
+            </div>
+          ) : (
+            <div className="space-x-3">
+              <Link
+                to="/login"
+                className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none "
+              >
+                LogIn
+              </Link>
+              <Link
+                to="/signup"
+                className="btn bg-gray-800 hover:bg-gray-900 text-white "
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
+
+           <dialog id="my_modal_2" className="modal">
+          <div className="modal-box flex items-center justify-center bg-white rounded-xl shadow-lg">
+            <img
+              src={user?.photoURL}
+              alt="Profile Preview"
+              className="max-h-[70vh] object-contain rounded-lg"
+            />
+          </div>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+
         </div>
       </div>
     </div>

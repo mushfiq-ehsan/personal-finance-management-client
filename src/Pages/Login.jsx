@@ -2,9 +2,12 @@ import { use } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { AuthContext } from "../Context/AuthContext";
 import { useLocation, useNavigate } from "react-router";
+import { signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
-  const { signIn } = use(AuthContext);
+  const { signIn, auth, setUser } = use(AuthContext);
+  const googleProvider = new GoogleAuthProvider();
   const location = useLocation()
   const navigate= useNavigate()
 
@@ -25,6 +28,21 @@ const Login = () => {
     alert(errorCode, errorMessage)
     });
   };
+
+   const handleGoogleLogIn = (e) => {
+    e.preventDefault();
+    signInWithPopup(auth, googleProvider)
+    .then((result)=>{
+
+      setUser(result.user)
+      navigate(location.state ? location.state : "/");
+
+    })
+    .catch((error) => {
+        alert(error)
+      });
+
+   }
 
   return (
     <div className="min-h-screen bg-base-200 flex items-center justify-center px-5">
@@ -73,7 +91,7 @@ const Login = () => {
             <div className="divider">OR</div>
 
             {/* Google */}
-            <button className="btn bg-white text-black border-[#e5e5e5] w-full">
+            <button onClick={handleGoogleLogIn} className="btn bg-white text-black border-[#e5e5e5] w-full">
               <svg
                 aria-label="Google logo"
                 width="16"

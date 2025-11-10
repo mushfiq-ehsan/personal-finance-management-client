@@ -3,11 +3,13 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 import { IoMdPhotos } from 'react-icons/io';
 import { MdOutlineDriveFileRenameOutline } from 'react-icons/md';
 import { AuthContext } from '../Context/AuthContext';
+import { useNavigate } from 'react-router';
 
 
 
 
 const SignUp = () => {
+  const navigate = useNavigate();
 
 const { createUser, setUser, updateUser } = use(AuthContext);
 
@@ -26,6 +28,7 @@ const handleSignIn = (e) => {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
+        navigate(`${location.state ? location.state : "/"}`);
         updateUser({ displayName: name, photoURL: photo })
           .then(() => {
             setUser({ ...user, displayName: name, photoURL: photo });
@@ -131,7 +134,7 @@ const handleSignIn = (e) => {
                   <p className="text-center text-sm mt-4">
                     Allready Have An Acount Go{" "}
                     <a
-                      href="/signup"
+                      href="/login"
                       className="text-primary font-semibold hover:underline"
                     >
                       LogIn
