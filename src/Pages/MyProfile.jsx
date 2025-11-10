@@ -70,13 +70,12 @@ const MyProfile = () => {
           <FaUserEdit className="mr-2" /> Edit Profile
         </button>
 
-        {/* profile  modal */}
-        <dialog id="photo_modal" className="modal">
-          <div className="modal-box  p-6 rounded-2xl flex justify-center items-center">
+        <dialog id="photo_modal" className="modal ">
+          <div className="modal-box  p-6 rounded-2xl flex justify-center items-center bg-white/10">
             <img
               src={photo}
               alt="Large Profile"
-              className="rounded-lg max-h-[70vh] object-contain"
+              className="h-150 w-150 object-contain "
             />
           </div>
           <form method="dialog" className="modal-backdrop">
@@ -86,7 +85,7 @@ const MyProfile = () => {
 
         {/* modal page */}
         <dialog id="edit_modal" className="modal">
-          <div className="modal-box backdrop-blur-md rounded-2xl shadow-lg border p-6">
+          <div className="modal-box bg-white/40 backdrop-blur-md rounded-2xl shadow-lg border p-6">
             <form method="dialog">
               <button className="btn btn-sm btn-circle btn-ghost absolute right-3 top-3">
                 ✕

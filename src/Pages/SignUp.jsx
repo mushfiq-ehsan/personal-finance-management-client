@@ -1,14 +1,16 @@
-import { use } from 'react';
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { use, useState } from 'react';
+import { FaEnvelope, FaEye, FaLock } from "react-icons/fa";
 import { IoMdPhotos } from 'react-icons/io';
 import { MdOutlineDriveFileRenameOutline } from 'react-icons/md';
 import { AuthContext } from '../Context/AuthContext';
 import { useNavigate } from 'react-router';
+import { RiEyeCloseFill } from 'react-icons/ri';
 
 
 
 
 const SignUp = () => {
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
 const { createUser, setUser, updateUser } = use(AuthContext);
@@ -69,28 +71,41 @@ const handleSignIn = (e) => {
         
                   <form onSubmit={handleSignIn}>
                     {/* name */}
-                  <label className="input input-bordered flex items-center gap-2 mb-3">
+                  <label className="input input-bordered flex items-center gap-2 mb-3 w-full">
                     <MdOutlineDriveFileRenameOutline className="text-gray-400" />
                     <input name='name' type="text" className="grow" placeholder="Name" />
                   </label>
 
                   {/* email */}
-                  <label className="input input-bordered flex items-center gap-2 mb-3">
+                  <label className="input input-bordered flex items-center gap-2 mb-3 w-full">
                     <FaEnvelope className="text-gray-400" />
                     <input name='email' type="email" className="grow" placeholder="Email" />
                   </label>
                   
                   {/* photourl */}
-                  <label className="input input-bordered flex items-center gap-2 mb-3">
+                  <label className="input input-bordered flex items-center gap-2 mb-3 w-full">
                     <IoMdPhotos className="text-gray-400" />
                     <input name='photo' type="text" className="" placeholder="PhotoUrl" />
                   </label>
         
-                  {/* password */}
-                  <label className="input input-bordered flex items-center gap-2 mb-3">
-                    <FaLock className="text-gray-400" />
-                    <input name='password' type="password" className="grow" placeholder="Password" />
-                  </label>
+                  {/* Password Input */}
+                              <div className="relative">
+                                <label className="input input-bordered flex items-center gap-2 mb-3 w-full">
+                                <FaLock className="text-gray-400" />
+                                <input
+                                  name="password"
+                                  type={show ? "text" : "password"}
+                                  className="grow "
+                                  placeholder="Password"
+                                />
+                              </label>
+                              <span
+                                    onClick={() => setShow(!show)}
+                                    className="absolute right-4 top-3 text-lg cursor-pointer z-50"
+                                  >
+                                    {show ? <RiEyeCloseFill /> : <FaEye />}
+                                  </span>
+                              </div>
         
                   <button to="/login" className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none w-full">
                     Sign Up

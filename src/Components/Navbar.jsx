@@ -93,7 +93,7 @@ const Navbar = () => {
   );
 
   return (
-      <div className="navbar shadow-sm px-10">
+      <div className="navbar shadow-sm md:px-10">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -138,9 +138,10 @@ const Navbar = () => {
             <div className="drawer drawer-end justify-end z-50 flex items-center gap-5">
 
 
-              <label  onChange={(e)=> handelTheme(e.target.checked)}  className="swap swap-rotate">
+              <label  onChange={(e)=> handelTheme(e.target.checked)}  className=" swap swap-rotate">
                 {/* this hidden checkbox controls the state */}
                 <input type="checkbox" />
+
 
                 {/* sun icon */}
                 <svg
@@ -222,7 +223,7 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <div className="space-x-3">
+            <div className="space-x-3 flex">
               <Link
                 to="/login"
                 className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none "
@@ -231,7 +232,7 @@ const Navbar = () => {
               </Link>
               <Link
                 to="/signup"
-                className="btn bg-gray-800 hover:bg-gray-900 text-white "
+                className="btn bg-gray-600 hover:bg-gray-700 text-white "
               >
                 Sign Up
               </Link>
@@ -239,11 +240,11 @@ const Navbar = () => {
           )}
 
           <dialog id="my_modal_2" className="modal">
-            <div className="modal-box flex items-center justify-center bg-white rounded-xl shadow-lg">
+            <div className="modal-box flex items-center justify-center bg-white/10 rounded-xl shadow-lg" >
               <img
                 src={user?.photoURL}
                 alt="Profile Preview"
-                className="max-h-[70vh] object-contain rounded-lg"
+                className="h-150 w-150 object-contain"
               />
             </div>
             <form method="dialog" className="modal-backdrop">

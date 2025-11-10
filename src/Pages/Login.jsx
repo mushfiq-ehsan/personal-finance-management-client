@@ -1,13 +1,15 @@
-import { use } from "react";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { use, useState } from "react";
+import { FaEnvelope, FaEye, FaLock } from "react-icons/fa";
 import { AuthContext } from "../Context/AuthContext";
 import { useLocation, useNavigate } from "react-router";
 import { signInWithPopup } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
+import { RiEyeCloseFill } from "react-icons/ri";
 
 const Login = () => {
   const { signIn, auth, setUser } = use(AuthContext);
   const googleProvider = new GoogleAuthProvider();
+  const [show, setShow] = useState(false);
   const location = useLocation()
   const navigate= useNavigate()
 
@@ -60,7 +62,7 @@ const Login = () => {
 
           <form onSubmit={handelLogin}>
             {/* Email Input */}
-            <label className="input input-bordered flex items-center gap-2 mb-3">
+            <label className="input input-bordered flex items-center gap-2 mb-3 w-full">
               <FaEnvelope className="text-gray-400" />
               <input
                 name="email"
@@ -71,15 +73,24 @@ const Login = () => {
             </label>
 
             {/* Password Input */}
-            <label className="input input-bordered flex items-center gap-2 mb-3">
+            <div className="relative">
+              <label className="input input-bordered flex items-center gap-2 mb-3 w-full">
               <FaLock className="text-gray-400" />
               <input
                 name="password"
-                type="password"
-                className="grow"
+                type={show ? "text" : "password"}
+                className="grow "
                 placeholder="Password"
               />
             </label>
+            <span
+                  onClick={() => setShow(!show)}
+                  className="absolute right-4 top-3 text-lg cursor-pointer z-50"
+                >
+                  {show ? <RiEyeCloseFill /> : <FaEye />}
+                </span>
+            </div>
+            
 
             <button
               to="/login"
