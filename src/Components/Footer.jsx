@@ -5,7 +5,7 @@ import { MdOutlineEmail } from "react-icons/md";
 const Footer = () => {
   return (
     <div>
-      <footer className="footer sm:footer-horizontal text-base-content p-10 shadow">
+      <footer className="footer sm:footer-horizontal text-base-content p-10 shadow bg-base-300">
         <div>
             <div className="flex items-center gap-3 text-xl text-[#3adc9e] font-bold">
                 <img className="w-20" src="https://i.ibb.co.com/5XXH6Dj9/Gemini-Generated-Image-4iszgc4iszgc4isz-removebg-preview.png" alt="" />

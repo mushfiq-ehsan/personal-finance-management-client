@@ -38,7 +38,6 @@ const MyProfile = () => {
   return (
     <div className="min-h-screen  flex justify-center items-center px-4">
       <div className="w-full max-w-2xl  backdrop-blur-md shadow-2xl rounded-3xl p-10 border border-gray-200 text-center relative">
-        {/* Profile Picture */}
         <div className="flex justify-center mb-6 relative">
           <button
             onClick={() => document.getElementById("photo_modal").showModal()}
@@ -57,14 +56,13 @@ const MyProfile = () => {
           </button>
         </div>
 
-        {/* User Info */}
         <h2 className="text-3xl font-bold">{name}</h2>
         <div className="flex justify-center items-center gap-2 mt-2">
           <AiOutlineMail />
           <span>{email}</span>
         </div>
 
-        {/* Update Button */}
+        {/* update button */}
         <button
           className="btn btn-primary mt-6 bg-yellow-400 hover:bg-yellow-600 text-white border-none rounded-full px-6"
           onClick={() => document.getElementById("edit_modal").showModal()}
@@ -72,7 +70,7 @@ const MyProfile = () => {
           <FaUserEdit className="mr-2" /> Edit Profile
         </button>
 
-        {/* Profile Photo Modal */}
+        {/* profile  modal */}
         <dialog id="photo_modal" className="modal">
           <div className="modal-box  p-6 rounded-2xl flex justify-center items-center">
             <img
@@ -86,7 +84,7 @@ const MyProfile = () => {
           </form>
         </dialog>
 
-        {/* Edit Profile Modal */}
+        {/* modal page */}
         <dialog id="edit_modal" className="modal">
           <div className="modal-box backdrop-blur-md rounded-2xl shadow-lg border p-6">
             <form method="dialog">
@@ -113,7 +111,7 @@ const MyProfile = () => {
               )}
 
 
-              {/* Name */}
+              {/* name */}
               <div>
                 <label className="block text-left  font-medium mb-1">
                   Name
@@ -128,7 +126,7 @@ const MyProfile = () => {
                 />
               </div>
 
-              {/* Email */}
+              {/* email */}
               <div>
                 <label className="block text-left  font-medium mb-1">
                   Email
@@ -142,7 +140,7 @@ const MyProfile = () => {
                 />
               </div>
 
-              {/* Photo URL */}
+              {/* photo url */}
               <div>
                 <label className="block text-left  font-medium mb-1">
                   Photo URL
