@@ -2,7 +2,7 @@ import { AiOutlineTransaction } from "react-icons/ai";
 import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlineAddCard } from "react-icons/md";
 import { TbReportSearch } from "react-icons/tb";
-import { Link, Links, NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   const link = (
@@ -10,7 +10,7 @@ const Navbar = () => {
       <NavLink
         className={({ isActive }) =>
           `mr-2 p-2 transition-all  duration-10 ${
-            isActive ? " border-[#3adc9e]" : ""
+            isActive ? "text-green-600 border-b-2 border-[#3adc9e]" : ""
           }`
         }
         to="/"
@@ -25,7 +25,7 @@ const Navbar = () => {
       <NavLink
         className={({ isActive }) =>
           `mr-2 p-2  transition-all  duration-10 ${
-            isActive ? " border-[#3adc9e]" : " "
+            isActive ? "text-green-600  border-b-2 border-[#3adc9e]" : " "
           }`
         }
         to="/add-transaction"
@@ -38,7 +38,7 @@ const Navbar = () => {
       <NavLink
         className={({ isActive }) =>
           `mr-2 p-2  transition-all  duration-10 ${
-            isActive ? " border-[#3adc9e]" : ""
+            isActive ? "text-green-600  border-b-2 border-[#3adc9e]" : ""
           }`
         }
         to="/my-transactions"
@@ -50,7 +50,7 @@ const Navbar = () => {
       <NavLink
         className={({ isActive }) =>
           `mr-2 p-2  transition-all  duration-10 ${
-            isActive ? " border-[#3adc9e]" : ""
+            isActive ? "text-green-600 border-b-2 border-[#3adc9e]" : ""
           }`
         }
         to="/reports"

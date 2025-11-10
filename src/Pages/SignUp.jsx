@@ -1,14 +1,57 @@
-import React from 'react';
-import { FaGoogle, FaEnvelope, FaLock } from "react-icons/fa";
+import { use } from 'react';
+import { FaEnvelope, FaLock } from "react-icons/fa";
 import { IoMdPhotos } from 'react-icons/io';
 import { MdOutlineDriveFileRenameOutline } from 'react-icons/md';
+import { AuthContext } from '../Context/AuthContext';
+
+
+
 
 const SignUp = () => {
+
+const { createUser, setUser, updateUser } = use(AuthContext);
+
+
+const handleSignIn = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const photo = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    
+
+
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        updateUser({ displayName: name, photoURL: photo })
+          .then(() => {
+            setUser({ ...user, displayName: name, photoURL: photo });
+          })
+          .catch((error) => {
+            console.log(error);
+            alert(error);
+            
+          });
+        form.reset();
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error);
+        
+      });
+  };
+
+
+
+
+
     return (
-        <div className="min-h-screen bg-base-200 flex items-center justify-center">
+        <div className="min-h-screen bg-base-200 flex items-center justify-center px-5">
               <div className="card w-full max-w-sm shadow-xl bg-base-100">
                 <div className="card-body">
-                  {/* logo and title */}
                   <div className="text-center mb-6">
                     <img
                       src="https://i.ibb.co.com/5XXH6Dj9/Gemini-Generated-Image-4iszgc4iszgc4isz-removebg-preview.png"
@@ -21,31 +64,32 @@ const SignUp = () => {
                     </p>
                   </div>
         
-                  {/* name */}
+                  <form onSubmit={handleSignIn}>
+                    {/* name */}
                   <label className="input input-bordered flex items-center gap-2 mb-3">
                     <MdOutlineDriveFileRenameOutline className="text-gray-400" />
-                    <input type="text" className="grow" placeholder="Name" />
+                    <input name='name' type="text" className="grow" placeholder="Name" />
                   </label>
 
                   {/* email */}
                   <label className="input input-bordered flex items-center gap-2 mb-3">
                     <FaEnvelope className="text-gray-400" />
-                    <input type="email" className="grow" placeholder="Email" />
+                    <input name='email' type="email" className="grow" placeholder="Email" />
                   </label>
                   
                   {/* photourl */}
                   <label className="input input-bordered flex items-center gap-2 mb-3">
                     <IoMdPhotos className="text-gray-400" />
-                    <input type="text" className="" placeholder="PhotoUrl" />
+                    <input name='photo' type="text" className="" placeholder="PhotoUrl" />
                   </label>
         
                   {/* password */}
                   <label className="input input-bordered flex items-center gap-2 mb-3">
                     <FaLock className="text-gray-400" />
-                    <input type="password" className="grow" placeholder="Password" />
+                    <input name='password' type="password" className="grow" placeholder="Password" />
                   </label>
         
-                  <button to="/login" className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none">
+                  <button to="/login" className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none w-full">
                     Sign Up
                   </button>
         
@@ -53,7 +97,7 @@ const SignUp = () => {
         
                   
                   {/* Google */}
-                  <button className="btn bg-white text-black border-[#e5e5e5]">
+                  <button className="btn bg-white text-black border-[#e5e5e5] w-full">
                     <svg
                       aria-label="Google logo"
                       width="16"
@@ -93,6 +137,7 @@ const SignUp = () => {
                       LogIn
                     </a>
                   </p>
+                  </form>
                 </div>
               </div>
             </div>
