@@ -1,10 +1,24 @@
+import { use } from "react";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlineAddCard } from "react-icons/md";
 import { TbReportSearch } from "react-icons/tb";
 import { Link, NavLink } from "react-router";
+import { AuthContext } from "../Context/AuthContext";
 
 const Navbar = () => {
+  const {user, logOut} = use(AuthContext)
+
+  const handelLogOut = () => {
+    logOut().then(() => {
+  alert("LogOut successfull")
+}).catch((error) => {
+  alert(error)
+});
+  }
+
+
+
   const link = (
     <>
       <NavLink
@@ -104,13 +118,13 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{link}</ul>
         </div>
-        <div className="navbar-end gap-5">
-          <Link to="/login" className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none">
+        <div className="navbar-end">
+          {user ? <button onClick={handelLogOut} className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none">LogOut</button> : <div className="space-x-3"><Link to="/login" className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none ">
             LogIn
           </Link>
           <Link to='/signup' className="btn bg-gray-800 hover:bg-gray-900 text-white ">
             Sign Up
-          </Link>
+          </Link></div>}
         </div>
       </div>
     </div>
