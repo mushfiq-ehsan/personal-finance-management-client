@@ -1,5 +1,6 @@
 import React from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import { Link } from "react-router";
 
 const Banner = () => {
   return (
@@ -27,12 +28,9 @@ const Banner = () => {
         </p>
 
         <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
-          <button className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none">
+          <Link to='/add-transaction' className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none">
             Get Started Free <FaLongArrowAltRight />
-          </button>
-          <button className="btn bg-gray-800 hover:bg-gray-900 text-white ">
-            Learn More
-          </button>
+          </Link>
         </div>
       </div>
       <div className="relative z-10 hidden md:block md:w-1/2"></div>

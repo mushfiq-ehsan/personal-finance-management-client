@@ -3,8 +3,8 @@ import { FaPlus } from "react-icons/fa";
 
 const AddTransaction = () => {
   return (
-    <div className="">
-      <div className="max-w-3xl mx-auto my-20 p-8 bg-base-100 shadow-xl rounded-2xl border">
+    <div className="px-5 bg-base-200 py-20">
+      <div className="max-w-3xl mx-auto  p-8 bg-base-100 shadow-xl rounded-2xl ">
         <h2 className="text-2xl font-bold text-center">
           Add New Transaction
         </h2>
