@@ -33,7 +33,8 @@ const router = createBrowserRouter([
             path: '/my-transactions',
             element:<PrivateRoute>
                 <MyTransactions></MyTransactions>
-            </PrivateRoute>,     
+            </PrivateRoute>,
+            loader: () => fetch('http://localhost:3000/transaction')
         },
         {
             path: '/reports',

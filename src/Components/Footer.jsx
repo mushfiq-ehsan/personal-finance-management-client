@@ -1,16 +1,17 @@
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { MdOutlineEmail } from "react-icons/md";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
     <div>
       <footer className="footer sm:footer-horizontal text-base-content p-10 shadow bg-base-300">
         <div>
-            <div className="flex items-center gap-3 text-xl text-[#3adc9e] font-bold">
+            <Link to='/' className="flex items-center gap-3 text-xl text-[#3adc9e] font-bold">
                 <img className="w-20" src="https://i.ibb.co.com/5XXH6Dj9/Gemini-Generated-Image-4iszgc4iszgc4isz-removebg-preview.png" alt="" />
                 <p>FinEase</p>
-            </div>
+            </Link>
             <p>
                 Your personal finance management companion.
                 <br />

@@ -6,72 +6,18 @@ import {
   FaTrashAlt,
   FaPlus,
 } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 
-const transactions = [
-  {
-    id: 1,
-    title: "Healthcare",
-    type: "Expense",
-    date: "November 16th, 2025",
-    description:
-      "Interactive charts (Pie & Bar) with month filtering Profile Management: Update name, photo, email...",
-    amount: 1000,
-    income: false,
-  },
-  {
-    id: 2,
-    title: "Investment",
-    type: "Income",
-    date: "November 11th, 2025",
-    description:
-      "Interactive charts (Pie & Bar) with month filtering Profile Management: Update name, photo, email...",
-    amount: 5000,
-    income: true,
-  },
-  {
-    id: 3,
-    title: "Gift",
-    type: "Income",
-    date: "November 9th, 2025",
-    description:
-      "Interactive charts (Pie & Bar) with month filtering Profile Management: Update name, photo, email...",
-    amount: 1500,
-    income: true,
-  },
-  {
-    id: 4,
-    title: "Education",
-    type: "Expense",
-    date: "November 9th, 2025",
-    description:
-      "Interactive charts (Pie & Bar) with month filtering Profile Management: Update name, photo, email...",
-    amount: 1000,
-    income: false,
-  },
-  {
-    id: 5,
-    title: "Shopping",
-    type: "Expense",
-    date: "November 8th, 2025",
-    description:
-      "Interactive charts (Pie & Bar) with month filtering Profile Management: Update name, photo, email...",
-    amount: 1500,
-    income: false,
-  },
-  {
-    id: 6,
-    title: "Freelance",
-    type: "Income",
-    date: "November 1st, 2025",
-    description:
-      "Interactive charts (Pie & Bar) with month filtering Profile Management: Update name, photo, email...",
-    amount: 10000,
-    income: true,
-  },
-];
+
 
 const MyTransactions = () => {
+  const data = useLoaderData()
+  console.log(data);
+  
+
+
+
+
   return (
     <div>
       <div className=" bg-base-200 p-5 ">
@@ -99,39 +45,39 @@ const MyTransactions = () => {
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {transactions.map((item) => (
+          {data.map((data) => (
             <div
-              key={item.id}
-              className=" card bg-base-100 shadow-md border border-gray-200 hover:shadow-lg transition-all duration-200"
+              key={data.id}
+              className=" card  shadow-md border border-gray-200 bg-white hover:shadow-lg transition-all duration-200"
             >
               <div className="card-body">
                 <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2 font-semibold text-lg">
-                    {item.income ? (
+                  <div className="flex items-center gap-2 font-semibold text-gray-800 text-lg">
+                    {data.type === 'income' ? (
                       <FaArrowUp className="text-green-500" />
                     ) : (
                       <FaArrowDown className="text-red-500" />
                     )}
-                    {item.title}
+                    {data.title}
                   </div>
                   <span
                     className={`font-bold ${
-                      item.income ? "text-green-600" : "text-red-600"
+                      data.income ? "text-green-600" : "text-red-600"
                     }`}
                   >
-                    {item.income ? `$${item.amount}.00` : `$${item.amount}.00`}
+                    {data.income ? `$${data.amount}.00` : `$${data.amount}.00`}
                   </span>
                 </div>
 
-                <p className="text-sm">
-                  <span className="font-semibold">Type:</span> {item.type}
+                <p className="text-sm text-gray-800">
+                  <span className="font-semibold">Type:</span> {data.type}
                 </p>
-                <p className="text-sm">
-                  <span className="font-semibold">Date:</span> {item.date}
+                <p className="text-sm text-gray-800">
+                  <span className="font-semibold">Date:</span> {data.date}
                 </p>
-                <p className="text-sm line-clamp-2">{item.description}</p>
+                <p className="text-sm line-clamp-2 text-gray-800">{data.description}</p>
 
-                <div className="flex items-center gap-3 mt-4">
+                <div className="flex items-center gap-3 mt-4 text-gray-800">
                   <Link
                     to="/view-details"
                     className="btn btn-outline btn-sm flex-1"

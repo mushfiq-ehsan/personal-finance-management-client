@@ -15,9 +15,8 @@ const ViewDetails = () => {
   };
 
   return (
-    <div className="min-h-screen  flex flex-col justify-center items-center p-6">
+    <div className="min-h-screen  flex  justify-center items-center p-6">
       <div className="w-full max-w-3xl bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
-        {/* Back to Transactions */}
         <div className="mb-4">
           <Link
             to="/my-transactions"
@@ -28,11 +27,11 @@ const ViewDetails = () => {
         </div>
 
         {/* Header */}
-        <div className="flex justify-between items-center border-b border-[#e0d7c8] pb-4 mb-6">
+        <div className="md:flex justify-between items-center border-b border-[#e0d7c8] pb-4 mb-6 ">
           <h1 className="text-2xl font-semibold text-gray-500 flex items-center gap-2">
             <span className="text-2xl">⬇</span> Transaction Details
           </h1>
-          <p className="text-3xl font-bold text-red-600">
+          <p className="text-3xl font-bold text-red-600 pt-2">
             ${transaction.amount.toFixed(2)}
           </p>
         </div>
