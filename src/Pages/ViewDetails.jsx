@@ -1,18 +1,13 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import { FaArrowLeft, FaDollarSign, FaPlus } from "react-icons/fa";
 import { BsTag, BsCalendarDate, BsFillFolderFill } from "react-icons/bs";
 
 const ViewDetails = () => {
-  const transaction = {
-    id: 1,
-    type: "Expense",
-    category: "Healthcare",
-    date: "November 16th, 2025",
-    amount: 1000,
-    description:
-      "Interactive charts (Pie & Bar) with month filtering Profile Management: Update name, photo, email display Protected Routes: Automatic redirect to login for unauthorized access Responsive Design: Mobile-friendly navigation with hamburger menu",
-  };
+  const details = useLoaderData()
+  const data = details.result
+  console.log(data);
+  
 
   return (
     <div className="min-h-screen  flex  justify-center items-center p-6">
@@ -25,31 +20,27 @@ const ViewDetails = () => {
             <FaArrowLeft className="mr-2" /> Back to Transactions
           </Link>
         </div>
-
-        {/* Header */}
         <div className="md:flex justify-between items-center border-b border-[#e0d7c8] pb-4 mb-6 ">
           <h1 className="text-2xl font-semibold text-gray-500 flex items-center gap-2">
             <span className="text-2xl">⬇</span> Transaction Details
           </h1>
           <p className="text-3xl font-bold text-red-600 pt-2">
-            ${transaction.amount.toFixed(2)}
+            ${data.amount}.00
           </p>
         </div>
-
-        {/* Info Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          {/* Type */}
+          {/* type */}
           <div className="flex items-center gap-3">
             <div className="bg-yellow-100 text-yellow-500 p-3 rounded-xl shadow-sm">
               <BsTag className="text-xl" />
             </div>
             <div>
               <p className="text-sm text-gray-500 font-medium">Type</p>
-              <p className="font-semibold text-gray-800">{transaction.type}</p>
+              <p className="font-semibold text-gray-800">{data.type}</p>
             </div>
           </div>
 
-          {/* Category */}
+          {/* category */}
           <div className="flex items-center gap-3">
             <div className="bg-green-100 text-green-400 p-3 rounded-xl shadow-sm">
               <BsFillFolderFill className="text-xl" />
@@ -57,49 +48,49 @@ const ViewDetails = () => {
             <div>
               <p className="text-sm text-gray-500 font-medium">Category</p>
               <p className="font-semibold text-gray-800">
-                {transaction.category}
+                {data.category}
               </p>
             </div>
           </div>
 
-          {/* Date */}
+          {/* date */}
           <div className="flex items-center gap-3">
             <div className="bg-yellow-100 text-yellow-500 p-3 rounded-xl shadow-sm">
               <BsCalendarDate className="text-xl" />
             </div>
             <div>
               <p className="text-sm text-gray-500 font-medium">Date</p>
-              <p className="font-semibold text-gray-800">{transaction.date}</p>
+              <p className="font-semibold text-gray-800">{data.date}</p>
             </div>
           </div>
 
-          {/* Total */}
+          {/* total */}
           <div className="flex items-center gap-3">
             <div className="bg-green-100 text-green-400 p-3 rounded-xl shadow-sm">
               <FaDollarSign className="text-xl" />
             </div>
             <div>
               <p className="text-sm text-gray-500 font-medium">
-                Total for {transaction.category}
+                Total for {data.category}
               </p>
               <p className="font-semibold text-gray-800">
-                ${transaction.amount.toFixed(2)}
+                ${data.amount}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Description */}
+        {/* description */}
         <div>
           <h3 className="font-semibold text-gray-800 mb-2">Description</h3>
           <p className="text-gray-600 text-sm leading-relaxed">
-            {transaction.description}
+            {data.description}
           </p>
         </div>
 
         <hr className="my-6 border-[#e8e3db]" />
 
-        {/* Buttons */}
+        {/* buttons */}
         <div className="flex flex-wrap gap-4 justify-center">
           <button
             onClick={() => document.getElementById("my_modal_1").showModal()}
@@ -108,7 +99,7 @@ const ViewDetails = () => {
             Edit Transaction
           </button>
 
-          {/* Modal */}
+          {/* modal */}
           <dialog id="my_modal_1" className="modal">
             <div className="modal-box  backdrop-blur-md border-0 rounded-2xl">
               <form method="dialog">

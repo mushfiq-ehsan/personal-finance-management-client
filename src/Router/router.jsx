@@ -25,22 +25,22 @@ const router = createBrowserRouter([
         },
         {
             path: '/add-transaction',
-            element: <PrivateRoute>
+            element: ( <PrivateRoute>
                 <AddTransaction></AddTransaction>
-            </PrivateRoute>,
+            </PrivateRoute> ),
         },
         {
             path: '/my-transactions',
-            element:<PrivateRoute>
+            element:( <PrivateRoute>
                 <MyTransactions></MyTransactions>
-            </PrivateRoute>,
+            </PrivateRoute> ),
             loader: () => fetch('http://localhost:3000/transaction')
         },
         {
             path: '/reports',
-            element: <PrivateRoute>
+            element: ( <PrivateRoute>
                 <Reports></Reports>
-            </PrivateRoute>,
+            </PrivateRoute> ),
         },
         {
             path:'/login',
@@ -57,10 +57,11 @@ const router = createBrowserRouter([
             </PrivateRoute>
         },
         {
-            path: '/view-details',
-            element: <PrivateRoute>
+            path: '/view-details/:id',
+            element: ( <PrivateRoute>
                 <ViewDetails></ViewDetails>
-            </PrivateRoute>
+            </PrivateRoute> ),
+            loader: ({params}) => fetch(`http://localhost:3000/transaction/${params.id}`)
         }
     ],
  }
