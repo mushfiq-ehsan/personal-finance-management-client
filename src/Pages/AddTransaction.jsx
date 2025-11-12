@@ -1,9 +1,11 @@
 import { use, useState } from "react";
 import { FaPlus, FaWallet } from "react-icons/fa";
 import { AuthContext } from "../Context/AuthContext";
+import toast from "react-hot-toast";
+import Loading from "./Loading";
 
 const AddTransaction = () => {
-  const { user } = use(AuthContext);
+  const { user, loading } = use(AuthContext);
 
   const [type, setType] = useState("Income");
 
@@ -19,10 +21,12 @@ const AddTransaction = () => {
       category: e.target.category.value,
       amount: parseFloat(e.target.amount.value),
       type: e.target.type.value,
-      date: new Date(),
+      date: e.target.date.value,
       email: user.email,
       name: user.displayName,
     };
+    console.log(form.date);
+    
     e.target.reset();
 
     fetch("http://localhost:3000/transaction", {
@@ -35,11 +39,20 @@ const AddTransaction = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        toast.success('Successfully toasted!')
+
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  loading && <Loading/>
+
+  // if (loading) {
+  //   return <Loading/>
+  // }
+
 
   return (
     <div className="px-5 bg-base-200 py-20">

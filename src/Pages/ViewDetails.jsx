@@ -3,6 +3,7 @@ import { BsCalendarDate, BsFillFolderFill, BsTag } from "react-icons/bs";
 import { FaArrowLeft, FaDollarSign, FaPlus } from "react-icons/fa";
 import { Link, useParams } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
+import Loading from "./Loading";
 
 const ViewDetails = () => {
   const [data, setData] = useState({})
@@ -11,23 +12,28 @@ const ViewDetails = () => {
   const {id} = useParams()
 
   useEffect(() => {
-      fetch(`http://localhost:3000/transaction/${id}`, {
-                headers: {
-                    authorization: `Bearer ${user.accessToken}`
-                }
-  })
-  .then(res => res.json())
-  .then(data => {
-    setData(data.result)
-    setLoading(false)
-    
-  })
+  if (!user?.accessToken) return;
 
+  fetch(`http://localhost:3000/transaction/${id}`, {
+    headers: {
+      authorization: `Bearer ${user.accessToken}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((resData) => {
+      console.log(resData);
+      setData(resData.result || resData);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Error loading transaction:", err);
+      setLoading(false);
+    });
+}, [id, user]);
 
-  }, [id, user])
 
   if(loading){
-    return <div>Loading...</div>
+    return <Loading/>
   }
   
   
@@ -48,7 +54,7 @@ const ViewDetails = () => {
             <span className="text-2xl">⬇</span> Transaction Details
           </h1>
           <p className="text-3xl font-bold text-red-600 pt-2">
-            ${data.amount}.00
+            ${data?.amount || 0}
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
