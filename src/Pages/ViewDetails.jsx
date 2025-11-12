@@ -1,10 +1,34 @@
+import { use, useEffect, useState } from "react";
 import { BsCalendarDate, BsFillFolderFill, BsTag } from "react-icons/bs";
 import { FaArrowLeft, FaDollarSign, FaPlus } from "react-icons/fa";
-import { Link, useLoaderData } from "react-router";
+import { Link, useParams } from "react-router";
+import { AuthContext } from "../Context/AuthContext";
 
 const ViewDetails = () => {
-  const details = useLoaderData()
-  const data = details.result
+  const [data, setData] = useState({})
+  const [loading, setLoading] = useState(true)
+  const {user} = use(AuthContext)
+  const {id} = useParams()
+
+  useEffect(() => {
+      fetch(`http://localhost:3000/transaction/${id}`, {
+                headers: {
+                    authorization: `Bearer ${user.accessToken}`
+                }
+  })
+  .then(res => res.json())
+  .then(data => {
+    setData(data.result)
+    setLoading(false)
+    
+  })
+
+
+  }, [id, user])
+
+  if(loading){
+    return <div>Loading...</div>
+  }
   
   
 
@@ -70,10 +94,10 @@ const ViewDetails = () => {
             </div>
             <div>
               <p className="text-sm text-gray-500 font-medium">
-                Total for {data.category}
+                Total Amount
               </p>
               <p className="font-semibold text-gray-800">
-                ${data.amount}
+                ${data.amount}.00
               </p>
             </div>
           </div>

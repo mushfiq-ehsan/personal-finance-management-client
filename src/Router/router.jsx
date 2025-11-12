@@ -62,7 +62,7 @@ const router = createBrowserRouter([
             element: ( <PrivateRoute>
                 <ViewDetails></ViewDetails>
             </PrivateRoute> ),
-            loader: ({params}) => fetch(`http://localhost:3000/transaction/${params.id}`)
+            
         },
         {
             path: '/update-transaction/:id',

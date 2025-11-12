@@ -9,7 +9,7 @@ const AddTransaction = () => {
 
   const categories = {
     Income: ["Salary", "Business", "Investments", "Other"],
-    Expense: ["Food", "Bills", "Entertainment", "Shopping", "Other"],
+    Expense: ["Food", "Health", "Bills", "Entertainment", "Shopping", "Other"],
   };
 
   const handelSubmit = (e) => {
@@ -50,7 +50,7 @@ const AddTransaction = () => {
         <h2 className="text-2xl font-bold text-center">Add New Transaction</h2>
         <p className="text-center mb-6">Record your income or expense</p>
         <form onSubmit={handelSubmit} className="space-y-5">
-          {/* Name */}
+          {/* name */}
           <div>
             <label className="label">
               <span className="label-text font-semibold">Name</span>
@@ -78,7 +78,7 @@ const AddTransaction = () => {
             />
           </div>
 
-          {/* Type */}
+          {/* type */}
           <div>
             <label className="label">
               <span className="label-text font-semibold">Type</span>
@@ -95,7 +95,7 @@ const AddTransaction = () => {
             </select>
           </div>
 
-          {/* Category */}
+          {/* category */}
           <div>
             <label className="label">
               <span className="label-text font-semibold">Category</span>

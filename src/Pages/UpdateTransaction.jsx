@@ -1,29 +1,34 @@
-import { useState } from "react";
-import { FaCalendarAlt } from "react-icons/fa";
+import { useState, useEffect } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 
 const UpdateTransaction = () => {
   const navigate = useNavigate();
   const details = useLoaderData();
   const data = details.result;
-  console.log(data);
-  
-
-  const [type, setType] = useState("Income");
-
+  const [type, setType] = useState(data?.type || "Income");
+  const [category, setCategory] = useState(data?.category || "");
   const categories = {
     Income: ["Salary", "Business", "Investments", "Other"],
-    Expense: ["Food", "Bills", "Entertainment", "Shopping", "Other"],
+    Expense: ["Food", "Health", "Bills", "Entertainment", "Shopping", "Other"],
   };
+
+
+
+  useEffect(() => {
+    if (data) {
+      setType(data.type);
+      setCategory(data.category);
+    }
+  }, [data]);
 
   const handelSubmit = (e) => {
     e.preventDefault();
     const form = {
       description: e.target.description.value,
-      category: e.target.category.value,
+      category: category,
       amount: e.target.amount.value,
-      type: e.target.type.value,
-      date: new Date(),
+      type: type,
+      date: e.target.date.value ? new Date(e.target.date.value) : new Date(),
     };
 
     fetch(`http://localhost:3000/transaction/${data._id}`, {
@@ -34,13 +39,12 @@ const UpdateTransaction = () => {
       body: JSON.stringify(form),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+      .then(() => {
+        navigate(-1);
       })
       .catch((err) => {
         console.log(err);
       });
-    navigate(0);
   };
 
   const handelBack = () => {
@@ -71,40 +75,40 @@ const UpdateTransaction = () => {
             />
           </div>
 
-          {/* Type */}
+          {/* type */}
           <div>
             <label className="label">
               <span className="label-text font-semibold">Type</span>
             </label>
             <select
-              defaultValue={data.type}
+              value={type}
               className="select select-bordered w-full"
               name="type"
-              onChange={(e) => setType(e.target.value)}
+              onChange={(e) => {
+                setType(e.target.value);
+                setCategory(""); // type বদলালে category reset হবে
+              }}
               required
             >
-              <option
-              value={"Income"}
-              >Income</option>
-              <option
-              value={"Expense"}
-              >Expense</option>
+              <option value="Income">Income</option>
+              <option value="Expense">Expense</option>
             </select>
           </div>
 
-          {/* Category */}
+          {/* category */}
           <div>
             <label className="label">
               <span className="label-text font-semibold">Category</span>
             </label>
             <select
-              defaultValue={data.category}
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
               className="select select-bordered w-full"
               name="category"
               required
             >
               <option value="">Select category</option>
-              {categories[type].map((cat, index) => (
+              {categories[type]?.map((cat, index) => (
                 <option key={index} value={cat}>
                   {cat}
                 </option>
@@ -148,7 +152,6 @@ const UpdateTransaction = () => {
                 }
                 className="input input-bordered w-full pr-10"
               />
-              <FaCalendarAlt className="absolute right-3 top-3.5 text-gray-400 text-lg pointer-events-none" />
             </div>
           </div>
 
@@ -156,7 +159,7 @@ const UpdateTransaction = () => {
             <button
               onClick={handelBack}
               type="button"
-              className="btn text-white  bg-gray-500 hover:bg-gray-600"
+              className="btn text-white bg-gray-500 hover:bg-gray-600"
             >
               Cancel
             </button>
