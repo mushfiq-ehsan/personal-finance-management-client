@@ -6,7 +6,7 @@ import { AuthContext } from "../Context/AuthContext";
 import { useNavigate } from "react-router";
 import { RiEyeCloseFill } from "react-icons/ri";
 import { signInWithPopup } from "firebase/auth";
-import { GoogleAuthProvider } from "firebase/auth/web-extension";
+import { GoogleAuthProvider } from "firebase/auth";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import Loading from "./Loading";
@@ -67,20 +67,23 @@ const SignUp = () => {
   };
 
 
-  const handleGoogleLogIn = (e) => {
-      e.preventDefault();
-      signInWithPopup(auth, googleProvider)
-      .then((result)=>{
-  
-        setUser(result.user)
-        navigate(location.state ? location.state : "/");
-  
-      })
-      .catch((error) => {
-          setPassError(error.message || "Failed to login. Please try again.");
+   const handleGoogleLogIn = (e) => {
+    e.preventDefault();
+    signInWithPopup(auth, googleProvider)
+    .then(()=>{
+      navigate(location.state ? location.state : "/");
+       Swal.fire({
+          title: "Login Complete!",
+          text: "Welcome back!",
+          icon: "success",
         });
-  
-     }
+
+    })
+    .catch((error) => {
+        toast.error(error.message || "Failed to login. Please try again.");
+      });
+
+   }
 
      loading && <Loading/>
 

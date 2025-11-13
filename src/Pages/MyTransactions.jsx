@@ -36,7 +36,7 @@ const MyTransactions = () => {
     setTransactions(sorted);
   };
 
-  // ✅ Fixed delete function: include authorization token
+  
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -101,7 +101,7 @@ const MyTransactions = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-3"
+        className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-3 px-5"
       >
         <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
           My Transactions
@@ -131,7 +131,7 @@ const MyTransactions = () => {
           variants={containerVariant}
           initial="hidden"
           animate="show"
-          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 p-3"
         >
           <AnimatePresence>
             {transactions.map((transaction) => (
