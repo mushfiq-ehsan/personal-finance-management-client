@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router";
 
 const UpdateTransaction = () => {
@@ -40,10 +41,11 @@ const UpdateTransaction = () => {
     })
       .then((res) => res.json())
       .then(() => {
+        toast.success("Transaction data updated successfully!");
         navigate(-1);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        toast.error("Failed to update transaction!");
       });
   };
 

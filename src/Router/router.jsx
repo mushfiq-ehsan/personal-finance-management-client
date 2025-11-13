@@ -10,69 +10,82 @@ import PrivateRoute from "../Private/PrivateRoute";
 import MyProfile from "../Pages/MyProfile";
 import ViewDetails from "../Pages/ViewDetails";
 import UpdateTransaction from "../Pages/UpdateTransaction";
-
-
-
-
+import Error from "../Pages/Error";
 
 const router = createBrowserRouter([
- {
+  {
     path: "/",
     Component: HomeLayout,
-    children:[
-        {
-            path:'/',
-            Component: Home,
-        },
-        {
-            path: '/add-transaction',
-            element: ( <PrivateRoute>
-                <AddTransaction></AddTransaction>
-            </PrivateRoute> ),
-        },
-        {
-            path: '/my-transactions',
-            element:( <PrivateRoute>
-                <MyTransactions></MyTransactions>
-            </PrivateRoute> ),
-            loader: () => fetch('http://localhost:3000/transaction')
-        },
-        {
-            path: '/reports',
-            element: ( <PrivateRoute>
-                <Reports></Reports>
-            </PrivateRoute> ),
-        },
-        {
-            path:'/login',
-            Component: Login,
-        },
-        {
-            path:'/signup',
-            Component: SignUp
-        },
-        {
-            path: '/my-profile',
-            element: <PrivateRoute>
-                <MyProfile></MyProfile>
-            </PrivateRoute>
-        },
-        {
-            path: '/view-details/:id',
-            element: ( <PrivateRoute>
-                <ViewDetails></ViewDetails>
-            </PrivateRoute> ),
-            
-        },
-        {
-            path: '/update-transaction/:id',
-            element: ( <PrivateRoute>
-                <UpdateTransaction></UpdateTransaction>
-            </PrivateRoute> ),
-            loader: ({params}) => fetch(`http://localhost:3000/transaction/${params.id}`)
-        }
+    children: [
+      {
+        path: "/",
+        Component: Home,
+      },
+      {
+        path: "/add-transaction",
+        element: (
+          <PrivateRoute>
+            <AddTransaction></AddTransaction>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-transactions",
+        element: (
+          <PrivateRoute>
+            <MyTransactions></MyTransactions>
+          </PrivateRoute>
+        ),
+        loader: () => fetch("http://localhost:3000/transaction"),
+      },
+      {
+        path: "/reports",
+        element: (
+          <PrivateRoute>
+            <Reports></Reports>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/login",
+        Component: Login,
+      },
+      {
+        path: "/signup",
+        Component: SignUp,
+      },
+      {
+        path: "/my-profile",
+        element: (
+          <PrivateRoute>
+            <MyProfile></MyProfile>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/view-details/:id",
+        element: (
+          <PrivateRoute>
+            <ViewDetails></ViewDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update-transaction/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateTransaction></UpdateTransaction>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/transaction/${params.id}`),
+      },
+      {
+        path: "/*",
+        Component: Error
+      },
     ],
- }
+  },
 ]);
 
 export default router;

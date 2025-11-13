@@ -6,6 +6,7 @@ import { TbReportSearch } from "react-icons/tb";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
 import { CgProfile } from "react-icons/cg";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
@@ -25,10 +26,10 @@ const Navbar = () => {
   const handelLogOut = () => {
     logOut()
       .then(() => {
-        alert("LogOut successfull");
+        toast.success("Successfully LogOut!");
       })
       .catch((error) => {
-        alert(error);
+         toast.error(error.message || "Failed to logOut. Please try again.");
       });
   };
 

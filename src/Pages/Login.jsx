@@ -5,13 +5,20 @@ import { useLocation, useNavigate } from "react-router";
 import { signInWithPopup } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { RiEyeCloseFill } from "react-icons/ri";
+import Loading from "./Loading";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  const { signIn, auth, setUser } = use(AuthContext);
+  const { signIn, auth, setUser, loading } = use(AuthContext);
   const googleProvider = new GoogleAuthProvider();
   const [show, setShow] = useState(false);
   const location = useLocation()
   const navigate= useNavigate()
+  const [error, setError] = useState("");
+
+
+
 
   const handelLogin = (e) => {
     e.preventDefault();
@@ -19,32 +26,47 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    signIn(email, password).then((result) => {
-      const user = result.user;
-      console.log(user);
+    signIn(email, password).then(() => {
+      form.reset();
       navigate(`${location.state ? location.state : "/"}`);
-      
+      Swal.fire({
+          title: "Login Complete!",
+          text: "Welcome back!",
+          icon: "success",
+        });
     }).catch((error) => {
-      const errorCode = error.code;
-    const errorMessage = error.message;
-    alert(errorCode, errorMessage)
+      if (error.code === "auth/invalid-email") {
+          setError("⚠️ Please enter a valid email address.");
+        } else if (error.code === "auth/missing-password") {
+          setError("⚠️ Password is required. Please enter your password.");
+        } else if (error.code === "auth/invalid-credential") {
+          setError("⚠️ Invalid email or password. Please check your credentials.");
+        } else {
+          setError("Something went wrong. Please try again.");
+        }
     });
   };
 
    const handleGoogleLogIn = (e) => {
     e.preventDefault();
     signInWithPopup(auth, googleProvider)
-    .then((result)=>{
-
-      setUser(result.user)
+    .then(()=>{
       navigate(location.state ? location.state : "/");
+       Swal.fire({
+          title: "Login Complete!",
+          text: "Welcome back!",
+          icon: "success",
+        });
 
     })
     .catch((error) => {
-        alert(error)
+        toast.error(error.message || "Failed to login. Please try again.");
       });
 
    }
+
+
+   loading && <Loading/>
 
   return (
     <div className="min-h-screen bg-base-200 flex items-center justify-center px-5">
@@ -90,7 +112,11 @@ const Login = () => {
                   {show ? <RiEyeCloseFill /> : <FaEye />}
                 </span>
             </div>
-            
+            {error && (
+                <p className="font-bold text-red-700 text-center border py-2 mt-3">
+                  {error}
+                </p>
+              )}
 
             <button
               to="/login"
