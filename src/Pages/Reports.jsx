@@ -13,7 +13,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { AuthContext } from "../Context/AuthContext"; // ✅ to get current user
+import { AuthContext } from "../Context/AuthContext"; 
 
 const COLORS = ["#ef4444", "#10b981", "#3b82f6", "#ec4899", "#8b5cf6", "#f59e0b"];
 const RADIAN = Math.PI / 180;
@@ -38,12 +38,11 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 };
 
 const Reports = () => {
-  const { user } = useContext(AuthContext); // ✅ get logged-in user
+  const { user } = useContext(AuthContext); 
   const [transactions, setTransactions] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
-  // ✅ fetch user's transactions securely
   useEffect(() => {
     if (user?.email) {
       fetch(`https://personal-finance-management-two.vercel.app/my-transaction?email=${user.email}`, {
@@ -65,8 +64,6 @@ const Reports = () => {
         .catch((err) => console.error(err));
     }
   }, [user]);
-
-  // ✅ filter by month safely
   useEffect(() => {
     if (!Array.isArray(transactions)) return;
 
@@ -85,7 +82,6 @@ const Reports = () => {
     setFilteredData(filtered);
   }, [selectedMonth, transactions]);
 
-  // ✅ Prevent crash if filteredData isn't array
   const safeData = Array.isArray(filteredData) ? filteredData : [];
 
   const categorySummary = safeData.reduce((acc, curr) => {

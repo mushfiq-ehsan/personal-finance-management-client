@@ -13,7 +13,7 @@ const cardVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-// Only icon background colors
+
 const iconColorClasses = {
   yellow: "bg-yellow-300 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200",
   green: "bg-green-300 dark:bg-green-700 text-green-800 dark:text-green-200",
