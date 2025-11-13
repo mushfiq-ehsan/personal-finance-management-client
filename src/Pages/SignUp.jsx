@@ -86,7 +86,7 @@ const SignUp = () => {
 
 
   return (
-    <div className="min-h-screen bg-base-200 flex items-center justify-center px-5">
+    <div className="min-h-screen bg-base-200 flex items-center justify-center p-5">
       <div className="card w-full max-w-sm shadow-xl bg-base-100">
         <div className="card-body">
           <div className="text-center mb-6">
@@ -133,7 +133,7 @@ const SignUp = () => {
               />
             </label>
 
-            {/* Password Input */}
+            {/* password */}
             <div className="relative">
               <label className="input input-bordered flex items-center gap-2 mb-3 w-full">
                 <FaLock className="text-gray-400" />
@@ -162,7 +162,7 @@ const SignUp = () => {
 
             <div className="divider">OR</div>
 
-            {/* Google */}
+            {/* google */}
             <button onClick={handleGoogleLogIn} className="btn bg-white text-black border-[#e5e5e5] w-full">
               <svg
                 aria-label="Google logo"

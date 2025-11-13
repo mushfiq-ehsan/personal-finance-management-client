@@ -36,7 +36,7 @@ const router = createBrowserRouter([
             <MyTransactions></MyTransactions>
           </PrivateRoute>
         ),
-        loader: () => fetch("http://localhost:3000/transaction"),
+        loader: () => fetch("https://personal-finance-management-two.vercel.app/transaction"),
       },
       {
         path: "/reports",
@@ -78,11 +78,11 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "/*",
-        Component: Error
-      },
     ],
+  },
+  {
+    path: "/*",
+    Component: Error
   },
 ]);
 

@@ -83,7 +83,7 @@ const Login = () => {
           </div>
 
           <form onSubmit={handelLogin}>
-            {/* Email Input */}
+            {/* email */}
             <label className="input input-bordered flex items-center gap-2 mb-3 w-full">
               <FaEnvelope className="text-gray-400" />
               <input
@@ -94,7 +94,7 @@ const Login = () => {
               />
             </label>
 
-            {/* Password Input */}
+            {/* password */}
             <div className="relative">
               <label className="input input-bordered flex items-center gap-2 mb-3 w-full">
               <FaLock className="text-gray-400" />
@@ -127,7 +127,7 @@ const Login = () => {
 
             <div className="divider">OR</div>
 
-            {/* Google */}
+            {/* google */}
             <button onClick={handleGoogleLogIn} className="btn bg-white text-black border-[#e5e5e5] w-full">
               <svg
                 aria-label="Google logo"

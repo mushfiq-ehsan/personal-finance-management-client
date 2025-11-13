@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
@@ -18,11 +18,10 @@ const UpdateTransaction = () => {
     Expense: ["Food", "Health", "Bills", "Entertainment", "Shopping", "Other"],
   };
 
-  // Fetch transaction data
   useEffect(() => {
     if (!id || !user) return;
 
-    fetch(`http://localhost:3000/transaction/${id}`, {
+    fetch(`https://personal-finance-management-two.vercel.app/transaction/${id}`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`,
       },
@@ -53,7 +52,7 @@ const UpdateTransaction = () => {
       date: e.target.date.value ? new Date(e.target.date.value) : new Date(),
     };
 
-    fetch(`http://localhost:3000/transaction/${data._id}`, {
+    fetch(`https://personal-finance-management-two.vercel.app/transaction/${data._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -84,7 +83,8 @@ const UpdateTransaction = () => {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Name */}
+
+          {/* name */}
           <div>
             <label className="label font-medium">Name</label>
             <input
@@ -96,7 +96,7 @@ const UpdateTransaction = () => {
             />
           </div>
 
-          {/* Type */}
+          {/* type */}
           <div>
             <label className="label font-semibold">Type</label>
             <select
@@ -113,7 +113,7 @@ const UpdateTransaction = () => {
             </select>
           </div>
 
-          {/* Category */}
+          {/* category */}
           <div>
             <label className="label font-semibold">Category</label>
             <select
@@ -131,7 +131,7 @@ const UpdateTransaction = () => {
             </select>
           </div>
 
-          {/* Amount */}
+          {/* amount */}
           <div>
             <label className="label font-medium">Amount</label>
             <input
@@ -143,7 +143,7 @@ const UpdateTransaction = () => {
             />
           </div>
 
-          {/* Description */}
+          {/* description */}
           <div>
             <label className="label font-medium">Description (Optional)</label>
             <textarea
@@ -154,7 +154,7 @@ const UpdateTransaction = () => {
             ></textarea>
           </div>
 
-          {/* Date */}
+          {/* date */}
           <div>
             <label className="label font-medium">Date</label>
             <input
@@ -167,7 +167,7 @@ const UpdateTransaction = () => {
             />
           </div>
 
-          {/* Buttons */}
+          {/* buttons */}
           <div className="flex justify-end gap-3 pt-3">
             <button
               onClick={() => navigate(-1)}

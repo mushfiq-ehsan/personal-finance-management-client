@@ -1,25 +1,22 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../Context/AuthContext";
 import { AnimatePresence, motion } from "framer-motion";
+import { useContext, useEffect, useState } from "react";
 import { FaArrowDown, FaArrowUp, FaEdit, FaEye, FaPlus } from "react-icons/fa";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+import { AuthContext } from "../Context/AuthContext";
 
-const TransactionsPage = () => {
+const MyTransactions = () => {
   const { user } = useContext(AuthContext);
   const [transactions, setTransactions] = useState([]);
   const [sortOrder, setSortOrder] = useState("Descending");
 
-
-
-
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/my-transaction?email=${user.email}`, {
+      fetch(`https://personal-finance-management-two.vercel.app/my-transaction?email=${user.email}`, {
         headers: {
-          authorization: `Bearer ${user.accessToken}`
-        }
+          authorization: `Bearer ${user.accessToken}`,
+        },
       })
         .then((res) => res.json())
         .then((data) => {
@@ -29,24 +26,17 @@ const TransactionsPage = () => {
     }
   }, [user]);
 
-
-
-
   const handleSort = (e) => {
     const order = e.target.value;
     setSortOrder(order);
 
     const sorted = [...transactions].sort((a, b) =>
-      order === "Ascending"
-        ? a.amount - b.amount
-        : b.amount - a.amount
+      order === "Ascending" ? a.amount - b.amount : b.amount - a.amount
     );
     setTransactions(sorted);
   };
 
-
-
-
+  // ✅ Fixed delete function: include authorization token
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -58,9 +48,12 @@ const TransactionsPage = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/transaction/${id}`, {
+        fetch(`https://personal-finance-management-two.vercel.app/transaction/${id}`, {
           method: "DELETE",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.accessToken}`, // ✅ Added token here
+          },
         })
           .then((res) => res.json())
           .then((response) => {
@@ -73,14 +66,18 @@ const TransactionsPage = () => {
                 text: "Your transaction has been deleted.",
                 icon: "success",
               });
+            } else {
+              Swal.fire({
+                title: "Error!",
+                text: "Failed to delete transaction.",
+                icon: "error",
+              });
             }
           })
           .catch((err) => console.error(err));
       }
     });
   };
-
-
 
   const containerVariant = {
     hidden: { opacity: 0 },
@@ -98,7 +95,7 @@ const TransactionsPage = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeInOut" }}
-      className="bg-base-200 p-5 min-h-screen"
+      className="bg-base-200 p-3 min-h-screen"
     >
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -128,6 +125,7 @@ const TransactionsPage = () => {
           </Link>
         </div>
       </motion.div>
+
       {transactions?.length > 0 ? (
         <motion.div
           variants={containerVariant}
@@ -153,7 +151,7 @@ const TransactionsPage = () => {
                 className="card shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-xl rounded-2xl transition-all duration-300 mb-10"
               >
                 <div className="card-body">
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="md:flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2 font-semibold text-gray-800 dark:text-gray-200 text-lg">
                       {transaction.type?.toLowerCase() === "income" ? (
                         <FaArrowUp className="text-green-500" />
@@ -213,7 +211,6 @@ const TransactionsPage = () => {
                       <FaEdit className="mr-2" /> Update
                     </Link>
 
-                    {/* ✅ Delete Button */}
                     <motion.button
                       whileTap={{ scale: 0.9 }}
                       onClick={() => handleDelete(transaction._id)}
@@ -249,4 +246,4 @@ const TransactionsPage = () => {
   );
 };
 
-export default TransactionsPage;
+export default MyTransactions;

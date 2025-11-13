@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { use, useState } from "react";
+import toast from "react-hot-toast";
 import { FaPlus, FaWallet } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Context/AuthContext";
@@ -30,7 +31,7 @@ const AddTransaction = () => {
 
     e.target.reset();
 
-    fetch("http://localhost:3000/transaction", {
+    fetch("https://personal-finance-management-two.vercel.app/transaction", {
       method: "POST",
       headers: { 
         "Content-Type": "application/json",

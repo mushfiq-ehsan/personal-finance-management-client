@@ -131,9 +131,6 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{link}</ul>
       </div>
-      <div className="navbar-end flex justify-end">
-        {user ? (
-          <div className="drawer drawer-end justify-end z-50 flex items-center gap-5">
             <div onClick={(e) => handelTheme(e.target.checked)}>
               {theme == "dark" ? (
                 // sun
@@ -155,6 +152,9 @@ const Navbar = () => {
                 </svg>
               )}
             </div>
+      <div className="navbar-end flex justify-end">
+        {user ? (
+          <div className="drawer drawer-end justify-end z-50 flex items-center gap-5">
 
             <input id="my-drawer-5" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content ">
@@ -203,13 +203,13 @@ const Navbar = () => {
           <div className="space-x-3 flex">
             <Link
               to="/login"
-              className="btn bg-yellow-500 hover:bg-yellow-600 text-white border-none "
+              className="btn btn-sm md:btn-md lg:btn-lg  bg-yellow-500 hover:bg-yellow-600 text-white border-none "
             >
               LogIn
             </Link>
             <Link
               to="/signup"
-              className="btn bg-gray-600 hover:bg-gray-700 text-white "
+              className="btn btn-sm md:btn-md lg:btn-lg  bg-gray-600 hover:bg-gray-700 text-white "
             >
               Sign Up
             </Link>
