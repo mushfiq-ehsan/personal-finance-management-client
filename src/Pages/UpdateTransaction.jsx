@@ -21,11 +21,14 @@ const UpdateTransaction = () => {
   useEffect(() => {
     if (!id || !user) return;
 
-    fetch(`https://personal-finance-management-two.vercel.app/transaction/${id}`, {
-      headers: {
-        authorization: `Bearer ${user.accessToken}`,
-      },
-    })
+    fetch(
+      `https://personal-finance-management-two.vercel.app/transaction/${id}`,
+      {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((resData) => {
         if (resData.success && resData.result) {
@@ -52,18 +55,54 @@ const UpdateTransaction = () => {
       date: e.target.date.value ? new Date(e.target.date.value) : new Date(),
     };
 
-    fetch(`https://personal-finance-management-two.vercel.app/transaction/${data._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${user.accessToken}`,
-      },
-      body: JSON.stringify(form),
-    })
+    const isChanged =
+      form.description !== (data.description || "") ||
+      form.category !== (data.category || "") ||
+      form.amount !== (data.amount || 0) ||
+      form.type !== (data.type || "Income") ||
+      new Date(form.date).toDateString() !== new Date(data.date).toDateString();
+
+    if (!isChanged) {
+      toast("Nothing changed, previous data retained", {
+        style: {
+          border: "1px solid #713200",
+          padding: "16px",
+          color: "#713200",
+        },
+        iconTheme: {
+          primary: "#713200",
+          secondary: "#FFFAEE",
+        },
+      });
+      return; 
+    }
+
+    // value change হয়েছে → update request
+    fetch(
+      `https://personal-finance-management-two.vercel.app/transaction/${data._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.accessToken}`,
+        },
+        body: JSON.stringify(form),
+      }
+    )
       .then((res) => res.json())
       .then((resData) => {
         if (resData.success) {
-          toast.success("Transaction updated successfully!");
+          toast.success("Transaction updated successfully!", {
+            style: {
+              border: "1px solid #713200",
+              padding: "16px",
+              color: "#713200",
+            },
+            iconTheme: {
+              primary: "#713200",
+              secondary: "#FFFAEE",
+            },
+          });
           navigate(-1);
         } else {
           toast.error("Failed to update transaction!");
@@ -83,8 +122,7 @@ const UpdateTransaction = () => {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-
-          {/* name */}
+          {/* Name */}
           <div>
             <label className="label font-medium">Name</label>
             <input
@@ -96,7 +134,7 @@ const UpdateTransaction = () => {
             />
           </div>
 
-          {/* type */}
+          {/* Type */}
           <div>
             <label className="label font-semibold">Type</label>
             <select
@@ -104,7 +142,7 @@ const UpdateTransaction = () => {
               className="select select-bordered w-full"
               onChange={(e) => {
                 setType(e.target.value);
-                setCategory(""); // reset category when type changes
+                setCategory(""); // type change হলে category reset
               }}
               required
             >
@@ -113,7 +151,7 @@ const UpdateTransaction = () => {
             </select>
           </div>
 
-          {/* category */}
+          {/* Category */}
           <div>
             <label className="label font-semibold">Category</label>
             <select
@@ -131,7 +169,7 @@ const UpdateTransaction = () => {
             </select>
           </div>
 
-          {/* amount */}
+          {/* Amount */}
           <div>
             <label className="label font-medium">Amount</label>
             <input
@@ -143,7 +181,7 @@ const UpdateTransaction = () => {
             />
           </div>
 
-          {/* description */}
+          {/* Description */}
           <div>
             <label className="label font-medium">Description (Optional)</label>
             <textarea
@@ -154,7 +192,7 @@ const UpdateTransaction = () => {
             ></textarea>
           </div>
 
-          {/* date */}
+          {/* Date */}
           <div>
             <label className="label font-medium">Date</label>
             <input
@@ -167,7 +205,7 @@ const UpdateTransaction = () => {
             />
           </div>
 
-          {/* buttons */}
+          {/* Buttons */}
           <div className="flex justify-end gap-3 pt-3">
             <button
               onClick={() => navigate(-1)}
